@@ -5,6 +5,14 @@
       "bundler": "metro"
     },
     "name": "signup-form",
-    "slug": "signup-form"
+    "slug": "signup-form",
+    "extra": {
+      "eas": {
+        "projectId": "919bab5d-d7ab-42c3-956d-088afd773f7b"
+      }
+    },
+    "android": {
+      "package": "com.ahmed_coder.signupform"
+    }
   }
 }
