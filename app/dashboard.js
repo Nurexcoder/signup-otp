@@ -3,7 +3,12 @@ import styled from "styled-components/native";
 import HeaderSignUp from "../components/common/HeaderSignUp";
 import { IMAGE, SIZES } from "../constants";
 import { useEffect, useState } from "react";
-import { FlatList,VirtualizedList } from "react-native";
+import {
+  FlatList,
+  Image,
+  TouchableOpacity,
+  VirtualizedList,
+} from "react-native";
 import axios from "axios";
 
 const Component = styled.SafeAreaView`
@@ -12,7 +17,6 @@ const Component = styled.SafeAreaView`
   align-items: center;
   justify-content: flex-start;
   height: 100%;
-  
 `;
 const HeaderContainer = styled.View`
   width: 100%;
@@ -21,8 +25,6 @@ const HeaderContainer = styled.View`
   justify-content: space-between;
   padding: 0 10px;
   flex-direction: row;
-
-
 `;
 const LeftHeader = styled.View`
   width: 40%;
@@ -55,10 +57,9 @@ const BodyContainer = styled.SafeAreaView`
   width: 100%;
   height: 80%;
   justify-content: space-between;
-
 `;
 const Box = styled.View`
-  width: 40%;
+  width: 100%;
   height: auto;
   border: 1px;
 `;
@@ -70,6 +71,7 @@ const BoxImage = styled.Image`
 `;
 const BoxText = styled.Text`
   font-size: 18px;
+  text-align: center;
 `;
 const dashboard = () => {
   const [query, setQuery] = useState("Batman");
@@ -88,7 +90,7 @@ const dashboard = () => {
       .request(config)
       .then((response) => {
         setData(response.data.results);
-        console.log(response.data);
+        // console.log(response.data.results[0].image.url);
       })
       .catch((error) => {
         console.log(error);
@@ -131,26 +133,41 @@ const dashboard = () => {
         vertical
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          justifyContent: "space-between",
+          //   justifyContent: "space-between",
           width: "100%",
-        
         }}
       >
-      <FlatList
+        <FlatList
           data={data}
           numColumns={2}
           renderItem={({ item }) => (
-            <Box>
-              <BoxImage source={item.image.url} />
-              <BoxText>{item.name}</BoxText>
-            </Box>
+            <TouchableOpacity
+              style={{
+                width: 150,
+                height: 200,
+              }}
+              onPress={() => console.log(item.image.url)}
+            >
+              <Box>
+                <Image
+                  style={{
+                    height: "80%",
+                    width: "100%",
+                  }}
+                  source={{url:item.image.url}}
+                />
+                <BoxText >{item.name}</BoxText>
+              </Box>
+            </TouchableOpacity>
           )}
           keyExtractor={(item) => item.id}
-        //   horizontal
           contentContainerStyle={{
-            justifyContent:"space-between",
-            columnGap:"20"
+            columnGap: SIZES.large,
+            justifyContent: "center",
+            padding:20
           }}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+          //   horizontal
         />
       </BodyContainer>
     </Component>
