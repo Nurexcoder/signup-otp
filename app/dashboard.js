@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
+  TextInput,
   TouchableOpacity,
   VirtualizedList,
 } from "react-native";
 import axios from "axios";
+import { View } from "react-native";
 
 const Component = styled.SafeAreaView`
   display: flex;
@@ -30,7 +32,8 @@ const LeftHeader = styled.View`
   width: 40%;
   /* border: 1px; */
 `;
-const RightHeader = styled.View``;
+const RightHeader = styled.View`
+`;
 const HomeIcon = styled.Image`
   width: 30px;
   height: 30px;
@@ -73,6 +76,28 @@ const BoxText = styled.Text`
   font-size: 18px;
   text-align: center;
 `;
+const styles = {
+  searchSection: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
+  searchIcon: {
+    padding: 10,
+    width:20
+  },
+  input: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingLeft: 0,
+    backgroundColor: "#fff",
+    color: "#424242",
+  },
+};
 const dashboard = () => {
   const [query, setQuery] = useState("Batman");
   const [data, setData] = useState([]);
@@ -122,7 +147,24 @@ const dashboard = () => {
         </LeftHeader>
         <RightHeader>
           <SearchButton>
-            <SearchButtonImage source={IMAGE.SearchIcon} />
+            <TouchableOpacity>
+              <SearchButtonImage source={IMAGE.SearchIcon} />
+            </TouchableOpacity>
+            
+            {/* <View style={styles.searchSection}>
+              <Image
+                style={styles.searchIcon}
+                size={20}
+                color="#000"
+                source={IMAGE.SearchIcon}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="User Nickname"
+               
+                underlineColorAndroid="transparent"
+              />
+            </View> */}
           </SearchButton>
         </RightHeader>
       </HeaderContainer>
@@ -154,9 +196,9 @@ const dashboard = () => {
                     height: "80%",
                     width: "100%",
                   }}
-                  source={{url:item.image.url}}
+                  source={{ url: item.image.url }}
                 />
-                <BoxText >{item.name}</BoxText>
+                <BoxText>{item.name}</BoxText>
               </Box>
             </TouchableOpacity>
           )}
@@ -164,9 +206,9 @@ const dashboard = () => {
           contentContainerStyle={{
             columnGap: SIZES.large,
             justifyContent: "center",
-            padding:20
+            padding: 20,
           }}
-          columnWrapperStyle={{justifyContent: 'space-between'}}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
           //   horizontal
         />
       </BodyContainer>
